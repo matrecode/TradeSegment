@@ -21,7 +21,6 @@ struct PrimaryButton: View {
                 .background(.blue)
                 .foregroundColor(.white)
                 .font(.headline)
-                .fontWeight(.semibold)
                 .clipShape(RoundedRectangle(cornerRadius: 2))
                 .scaleEffect(isPressed ? 0.96 : 1.0)
                 .opacity(isPressed ? 0.85 : 1.0)

@@ -25,7 +25,7 @@ struct HomeView: View {
             alignment: .leading
         )
         .padding([.leading, .trailing], 24.0)
-        .navigationDestination(item: $viewModel.nextNavigationRoute){
+        .navigate(item: $viewModel.nextNavigationRoute){
             viewModel.nextView(for: $0)
         }
     }
