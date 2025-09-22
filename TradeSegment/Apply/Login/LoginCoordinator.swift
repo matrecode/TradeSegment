@@ -15,7 +15,8 @@ extension LoginCoordinator {
     func view(for route: LoginRoute) -> some View {
         switch route {
             case .navigateToRoot:
-                LoginView()
+                let viewModel = LoginViewModel(coordinator: self)
+                LoginView(viewModel: viewModel)
             case .navigateToOTP:
                 EmptyView()
         }

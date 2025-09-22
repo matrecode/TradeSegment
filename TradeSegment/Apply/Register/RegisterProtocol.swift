@@ -12,5 +12,6 @@ protocol RegisterProtocol: ObservableObject {
     associatedtype Body: View
     
     var navigationRoute: RegisterRoute? { get set }
+    func register()
     func nextView(for route: RegisterRoute) -> Body
 }

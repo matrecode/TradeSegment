@@ -10,5 +10,5 @@ import Foundation
 enum RegisterRoute: Identifiable {
     var id: Self { self }
     case navigateToRoot
-    case navigateToOtpVerification
+    case navigateToLogin
 }

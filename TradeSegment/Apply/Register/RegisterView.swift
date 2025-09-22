@@ -8,17 +8,38 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State var name: String = ""
+    @ObservedObject var viewModel: RegisterViewModel
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 64.0) {
                 titleView
                 imageView
                 VStack(spacing: 20.0) {
-                    FloatingTextField(placeHolderText: "Phone number", text: $name)
-                    PrimaryButton(title: "Continue", action: {
-                        print("Register")
+                    FloatingTextField(
+                        placeHolderText: "Email Address",
+                        text: $viewModel.email
+                    )
+                    .textCase(.lowercase)
+                    FloatingTextField(
+                        placeHolderText: "Password",
+                        text: $viewModel.password,
+                        isSecure: true
+                    )
+                    if case let .failure(error) = viewModel.registrationResult {
+                        Text(error.description)
+                            .foregroundColor(.red)
+                            .font(.caption)
+                    }
+                    if case .success = viewModel.registrationResult {
+                        Text("Registration successful!")
+                            .foregroundColor(.green)
+                            .font(.caption)
+                    }
+                    PrimaryButton(title: viewModel.isLoading ? "Loading..." : "Continue", action: {
+                        viewModel.register()
                     })
+                    .disabled(viewModel.isLoading)
+                    subtitleView
                 }
                 desclaimerView
             }
@@ -29,6 +50,9 @@ struct RegisterView: View {
             .padding([.leading, .trailing], 24.0)
         }
         .hideKeyboardOnTap()
+        .navigate(item: $viewModel.navigationRoute){
+            viewModel.nextView(for: $0)
+        }
     }
     
     
@@ -49,11 +73,25 @@ struct RegisterView: View {
         .frame(maxWidth: .infinity, alignment: .center)
     }
     
+    private var subtitleView: some View {
+        Text(viewModel.termsAndConditionText)
+            .font(.caption)
+            .foregroundStyle(.secondary)
+    }
+    
     private var desclaimerView : some View {
         DesclaimerView()
     }
 }
 
 #Preview {
-    RegisterView()
+    if #available(iOS 16.0, *) {
+        NavigationStack {
+            RegisterView(viewModel: RegisterViewModel())
+        }
+    } else {
+        NavigationView {
+            RegisterView(viewModel: RegisterViewModel())
+        }
+    }
 }

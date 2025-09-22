@@ -15,9 +15,12 @@ extension RegisterCoordinator {
     func view(for route: RegisterRoute) -> some View {
         switch route {
             case .navigateToRoot:
-                RegisterView()
-            case .navigateToOtpVerification:
-                EmptyView()
+                let viewModel = RegisterViewModel(coordinator: self)
+                RegisterView(viewModel: viewModel)
+            case .navigateToLogin:
+                LoginCoordinator()
+                    .view(for: .navigateToRoot)
+                    .navigationBarBackButtonHidden(true)
         }
     }
 }

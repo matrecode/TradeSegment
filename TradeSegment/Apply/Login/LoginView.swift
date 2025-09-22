@@ -11,6 +11,7 @@ import SwiftUI
 struct LoginView: View {
     @State var mobileNumber: String = ""
     @State var password: String = ""
+    @ObservedObject var viewModel: LoginViewModel
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 64.0) {
@@ -55,5 +56,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    LoginView(viewModel: LoginViewModel())
 }
