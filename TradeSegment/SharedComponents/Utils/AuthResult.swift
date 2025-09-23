@@ -7,12 +7,12 @@
 
 import Foundation
 
-public enum RegisterResult: Equatable {
+public enum AuthResult: Equatable {
     case success
-    case failure(RegisterError)
+    case failure(AuthError)
 }
 
-public enum RegisterError: Error, Equatable, CustomStringConvertible {
+public enum AuthError: Error, Equatable, CustomStringConvertible {
     case emailAlreadyInUse
     case invalidEmail
     case weakPassword

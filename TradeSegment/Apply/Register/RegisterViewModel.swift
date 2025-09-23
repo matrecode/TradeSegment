@@ -14,11 +14,11 @@ final class RegisterViewModel: RegisterProtocol {
     
     @Published var navigationRoute: RegisterRoute?
     private let coordinator: Coordinator?
-
+    
     // Registration state
     @Published var email: String = ""
     @Published var password: String = ""
-    @Published var registrationResult: RegisterResult? = nil
+    @Published var registrationResult: AuthResult? = nil
     @Published var isLoading: Bool = false
     
     // MARK - Computed Property
@@ -44,18 +44,18 @@ final class RegisterViewModel: RegisterProtocol {
                 self?.isLoading = false
                 if let error = error as NSError? {
                     let code = AuthErrorCode(rawValue: error.code)
-                    let registerError: RegisterError
+                    let registerError: AuthError
                     switch code {
-                    case .emailAlreadyInUse:
-                        registerError = .emailAlreadyInUse
-                    case .invalidEmail:
-                        registerError = .invalidEmail
-                    case .weakPassword:
-                        registerError = .weakPassword
-                    case .networkError:
-                        registerError = .networkError
-                    default:
-                        registerError = .unknown(error.localizedDescription)
+                        case .emailAlreadyInUse:
+                            registerError = .emailAlreadyInUse
+                        case .invalidEmail:
+                            registerError = .invalidEmail
+                        case .weakPassword:
+                            registerError = .weakPassword
+                        case .networkError:
+                            registerError = .networkError
+                        default:
+                            registerError = .unknown(error.localizedDescription)
                     }
                     self?.registrationResult = .failure(registerError)
                     return

@@ -25,16 +25,20 @@ struct RegisterView: View {
                         text: $viewModel.password,
                         isSecure: true
                     )
-                    if case let .failure(error) = viewModel.registrationResult {
-                        Text(error.description)
-                            .foregroundColor(.red)
-                            .font(.caption)
+                    
+                    if let registrationResult = viewModel.registrationResult{
+                        switch registrationResult {
+                            case .success:
+                                Text("Registration successful!")
+                                    .foregroundColor(.green)
+                                    .font(.caption)
+                            case .failure(let error):
+                                Text(error.description)
+                                    .foregroundColor(.red)
+                                    .font(.caption)
+                        }
                     }
-                    if case .success = viewModel.registrationResult {
-                        Text("Registration successful!")
-                            .foregroundColor(.green)
-                            .font(.caption)
-                    }
+                    
                     PrimaryButton(title: viewModel.isLoading ? "Loading..." : "Continue", action: {
                         viewModel.register()
                     })

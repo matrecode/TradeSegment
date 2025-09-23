@@ -12,6 +12,7 @@ protocol LoginProtocol: ObservableObject {
     associatedtype Body: View
     
     var navigationRoute: LoginRoute? { get set }
+    func doLogin()
     func nextView(for route: LoginRoute) -> Body
     
 }

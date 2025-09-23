@@ -18,16 +18,28 @@ struct LoginView: View {
                 titleView
                 VStack(spacing: 20.0) {
                     FloatingTextField(
-                        placeHolderText: "Phone number",
-                        text: $mobileNumber
+                        placeHolderText: "Email Address",
+                        text: $viewModel.email
                     )
                     FloatingTextField(
                         placeHolderText: "Password",
-                        text: $password,
+                        text: $viewModel.password,
                         isSecure: true
                     )
-                    PrimaryButton(title: "Login", action: {
-                        
+                    if let loginResult = viewModel.loginResult{
+                        switch loginResult {
+                            case .success:
+                                Text("Login successful!")
+                                    .foregroundColor(.green)
+                                    .font(.caption)
+                            case .failure(let loginError):
+                                Text(loginError.description)
+                                    .foregroundColor(.red)
+                                    .font(.caption)
+                        }
+                    }
+                    PrimaryButton(title: viewModel.isLoading ? "Loading..." : "Continue", action: {
+                        viewModel.doLogin()
                     })
                 }
                 desclaimerView
