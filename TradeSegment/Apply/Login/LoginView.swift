@@ -19,12 +19,14 @@ struct LoginView: View {
                 VStack(spacing: 20.0) {
                     FloatingTextField(
                         placeHolderText: "Email Address",
-                        text: $viewModel.email
+                        text: $viewModel.email,
+                        label: "Email Address"
                     )
                     FloatingTextField(
                         placeHolderText: "Password",
                         text: $viewModel.password,
-                        isSecure: true
+                        isSecure: true,
+                        label: "Password"
                     )
                     if let loginResult = viewModel.loginResult{
                         switch loginResult {
@@ -38,7 +40,7 @@ struct LoginView: View {
                                     .font(.caption)
                         }
                     }
-                    PrimaryButton(title: viewModel.isLoading ? "Loading..." : "Continue", action: {
+                    PrimaryButton(title: viewModel.isLoading ? "Loading..." : "Login", action: {
                         viewModel.doLogin()
                     })
                 }
@@ -49,6 +51,9 @@ struct LoginView: View {
                 alignment: .center
             )
             .padding([.leading, .trailing], 24.0)
+            .navigate(item: $viewModel.navigationRoute){
+                viewModel.nextView(for: $0)
+            }
         }
         .hideKeyboardOnTap()
     }

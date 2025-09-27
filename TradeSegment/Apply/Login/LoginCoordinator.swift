@@ -17,8 +17,9 @@ extension LoginCoordinator {
             case .navigateToRoot:
                 let viewModel = LoginViewModel(coordinator: self)
                 LoginView(viewModel: viewModel)
-            case .navigateToOTP:
-                EmptyView()
+            case .navigateToDashboard:
+                HomeTabView()
+                    .navigationBarBackButtonHidden(true)
         }
     }
 }

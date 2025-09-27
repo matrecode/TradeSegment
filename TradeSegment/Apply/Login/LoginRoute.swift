@@ -10,5 +10,5 @@ import Foundation
 enum LoginRoute: Identifiable {
     var id: Self { self }
     case navigateToRoot
-    case navigateToOTP
+    case navigateToDashboard
 }

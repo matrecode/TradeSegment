@@ -13,17 +13,18 @@ struct RegisterView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 64.0) {
                 titleView
-                imageView
                 VStack(spacing: 20.0) {
                     FloatingTextField(
                         placeHolderText: "Email Address",
-                        text: $viewModel.email
+                        text: $viewModel.email,
+                        label: "Email Address"
                     )
-                    .textCase(.lowercase)
+                    
                     FloatingTextField(
                         placeHolderText: "Password",
                         text: $viewModel.password,
-                        isSecure: true
+                        isSecure: true,
+                        label: "Password"
                     )
                     
                     if let registrationResult = viewModel.registrationResult{
@@ -39,7 +40,7 @@ struct RegisterView: View {
                         }
                     }
                     
-                    PrimaryButton(title: viewModel.isLoading ? "Loading..." : "Continue", action: {
+                    PrimaryButton(title: viewModel.isLoading ? "Loading..." : "Register", action: {
                         viewModel.register()
                     })
                     .disabled(viewModel.isLoading)

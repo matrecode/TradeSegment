@@ -14,5 +14,4 @@ protocol LoginProtocol: ObservableObject {
     var navigationRoute: LoginRoute? { get set }
     func doLogin()
     func nextView(for route: LoginRoute) -> Body
-    
 }

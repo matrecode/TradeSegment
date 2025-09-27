@@ -16,8 +16,8 @@ final class LoginViewModel: LoginProtocol {
     @Published var password: String = ""
     @Published var loginResult: AuthResult? = nil
     @Published var isLoading: Bool = false
+    @Published var navigationRoute: LoginRoute?
     
-    var navigationRoute: LoginRoute?
     let coordinator: Coordinator?
     
     init(coordinator: Coordinator? = nil) {
@@ -48,6 +48,11 @@ final class LoginViewModel: LoginProtocol {
                     self.loginResult = .failure(authError)
                 } else {
                     self.loginResult = .success
+                    self.email = ""
+                    self.password = ""
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.navigationRoute = .navigateToDashboard
+                    }
                 }
             }
         }

@@ -61,7 +61,11 @@ final class RegisterViewModel: RegisterProtocol {
                     return
                 }
                 self?.registrationResult = .success
-                self?.navigationRoute = .navigateToLogin
+                self?.email = ""
+                self?.password = ""
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self?.navigationRoute = .navigateToLogin
+                }
             }
         }
     }
