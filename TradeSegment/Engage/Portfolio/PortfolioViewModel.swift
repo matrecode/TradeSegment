@@ -22,16 +22,4 @@ final class PortfolioViewModel: PortfolioProtocol {
     func nextView(for route: PortfolioRoute) -> some View {
         coordinator?.view(for: route)
     }
-    
-    func test(){
-       
-    }
-    
-    func test(name:String){
-       
-    }
-    
-
-    
-    
 }
