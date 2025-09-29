@@ -7,24 +7,48 @@
 
 import SwiftUI
 
-struct HomeTabView: View {
+struct HomeTabView<ViewModel: HomeTabProtocol>: View {
+    @ObservedObject var viewModel: ViewModel
     @State private var selectedTab = 0
     var body: some View {
         TabView(selection: $selectedTab) {
-            Text("First Tab")
+            nextView(route: .watchlist)
                 .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
+                    Label("Watchlist", systemImage: "bookmark")
                 }
-            Text("Second Tab")
+                .tag(0)
+            nextView(route: .orders)
                 .tabItem {
-                    Image(systemName: "cart")
-                    Text("Cart")
+                    Label("Orders", systemImage: "book")
                 }
+                .tag(1)
+            nextView(route: .portfolio)
+                .tabItem {
+                    Label("Portfolio", systemImage: "briefcase")
+                }
+                .tag(2)
+            nextView(route: .bids)
+                .tabItem {
+                    Label("Bids", systemImage: "hammer")
+                }
+                .tag(3)
+            nextView(route: .profile)
+                .tabItem {
+                    Label("Profile", systemImage: "person")
+                }
+                .tag(4)
         }
+    }
+    
+    @ViewBuilder
+    private func nextView(route: HomeTabRoute) -> some View {
+        VStack(spacing: 0) {
+            viewModel.nextView(route: route)
+        }
+        .background(Color.red)
     }
 }
 
 #Preview {
-    HomeTabView()
+    HomeTabView(viewModel: HomeTabViewModel())
 }

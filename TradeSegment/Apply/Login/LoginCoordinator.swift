@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-final class LoginCoordinator {}
+final class LoginCoordinator {
+}
 
 extension LoginCoordinator {
     @ViewBuilder
@@ -18,7 +19,10 @@ extension LoginCoordinator {
                 let viewModel = LoginViewModel(coordinator: self)
                 LoginView(viewModel: viewModel)
             case .navigateToDashboard:
-                HomeTabView()
+                let viewModel = HomeTabViewModel(
+                    coordinator: HomeTabCoordinator()
+                )
+                HomeTabView(viewModel: viewModel)
                     .navigationBarBackButtonHidden(true)
         }
     }
