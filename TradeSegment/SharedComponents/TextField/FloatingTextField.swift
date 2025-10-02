@@ -55,6 +55,7 @@ struct FloatingTextField: View {
             .overlay {
                 RoundedRectangle(cornerRadius: 2)
                     .stroke(.secondary, lineWidth: 1)
+                    .opacity(0.3)
             }
         }
     }
