@@ -45,7 +45,6 @@ struct HomeTabView<ViewModel: HomeTabProtocol>: View {
         VStack(spacing: 0) {
             viewModel.nextView(route: route)
         }
-        .background(Color.red)
     }
 }
 
